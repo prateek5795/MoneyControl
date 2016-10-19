@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="com.example.prateek.moneycontrol.UI.LoginActivity">
+
+    <TextView
+        android:id="@+id/tv_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="LOGIN"
+        android:textColor="#fff"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_emailInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/input_background"
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
+        android:padding="15dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHint="#84878c" />
+
+    <EditText
+        android:id="@+id/et_passwordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_background"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:padding="15dp"
+        android:textColor="@color/cardview_dark_background"
+        android:textColorHint="#84878c" />
+
+    <Button
+        android:id="@+id/bLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_background"
+        android:padding="15dp"
+        android:text="Sign In"
+        android:textColor="@color/cardview_light_background" />
+
+
+    <TextView
+        android:id="@+id/tv_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="New user? Sign up!"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+</LinearLayout>

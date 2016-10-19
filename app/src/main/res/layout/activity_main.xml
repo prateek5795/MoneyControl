@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    android:weightSum="100"
+    tools:context=".UI.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/llGreeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="60"
+        android:background="#7f8c8d"
+        android:orientation="vertical"
+        android:tag="sad"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="60"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="20dp"
+                android:text="SEPT 9"
+                android:textColor="#fff"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="70"
+                android:padding="10dp"
+                android:src="@drawable/evening" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvGreeting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Good Evening,"
+                android:textColor="#fff"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/tvThisMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#F6BE1C"
+            android:gravity="center"
+            android:text="THIS MONTH"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <View
+                android:id="@+id/v1"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#F6BE1C" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="BUDGET"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvBudgetAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="₹ ?" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v2"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#F6BE1C" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="SPENT"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSpentAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="₹ ?" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v3"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#F6BE1C" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v4"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#F6BE1C" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <View
+                android:id="@+id/v5"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#F6BE1C" />
+
+            <LinearLayout
+                android:id="@+id/llAddMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_deposit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/deposit_orange" />
+
+                <TextView
+                    android:id="@+id/tvAddMoney"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:text="DEPOSIT"
+                    android:textColor="#F6BE1C" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v6"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#F6BE1C" />
+
+            <LinearLayout
+                android:id="@+id/llTransact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_transact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/transact_orange" />
+
+                <TextView
+                    android:id="@+id/tvTransact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:text="TRANSACT"
+                    android:textColor="#F6BE1C" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v7"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#F6BE1C" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v8"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#F6BE1C" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <View
+                android:id="@+id/v9"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#F6BE1C" />
+
+            <LinearLayout
+                android:id="@+id/llActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/list_orange" />
+
+                <TextView
+                    android:id="@+id/tvActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:text="ACTIVITY"
+                    android:textColor="#F6BE1C" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v10"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#F6BE1C" />
+
+            <LinearLayout
+                android:id="@+id/llProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/profile_orange" />
+
+                <TextView
+                    android:id="@+id/tvProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:text="PROFILE"
+                    android:textColor="#F6BE1C" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/v11"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#F6BE1C" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v12"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#F6BE1C" />
+
+    </LinearLayout>
+
+</LinearLayout>
