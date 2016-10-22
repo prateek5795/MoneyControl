@@ -50,14 +50,10 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
         ButterKnife.bind(this);
-
         mAuth = FirebaseAuth.getInstance();
         mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
-
         mProgress = new ProgressDialog(this);
-
         bSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,42 +63,35 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void startSignup() {
-
         final String fName = et_firstName.getText().toString();
         final String lName = et_lastName.getText().toString();
         String email = et_emailInput.getText().toString();
         String pass1 = et_passwordInput1.getText().toString();
         String pass2 = et_passwordInput2.getText().toString();
-
         if (fName.equals("") || lName.equals("") || email.equals("") || pass1.equals("") || pass2.equals("")) {
             Toast.makeText(SignupActivity.this, "Some fields are empty", Toast.LENGTH_SHORT).show();
         } else {
             if (!pass1.equals(pass2)) {
                 Toast.makeText(SignupActivity.this, "Passwords dont match", Toast.LENGTH_SHORT).show();
             } else {
-
                 mProgress.setMessage("Creating new account");
                 mProgress.show();
-
                 mAuth.createUserWithEmailAndPassword(email, pass1)
                         .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-
                                     String user_id = mAuth.getCurrentUser().getUid();
                                     DatabaseReference currUserRef = mDatabseUsers.child(user_id);
                                     currUserRef.child("fname").setValue(fName);
                                     currUserRef.child("lname").setValue(lName);
                                     currUserRef.child("budget").setValue("0");
                                     currUserRef.child("spent").setValue("0");
-
                                     Toast.makeText(SignupActivity.this, "Registered", Toast.LENGTH_SHORT).show();
                                     mProgress.dismiss();
                                     Intent mainIntent = new Intent(SignupActivity.this, MainActivity.class);
                                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(mainIntent);
-
                                 } else {
                                     Toast.makeText(SignupActivity.this, "Error creating account", Toast.LENGTH_SHORT).show();
                                 }
@@ -110,6 +99,5 @@ public class SignupActivity extends AppCompatActivity {
                         });
             }
         }
-
     }
 }

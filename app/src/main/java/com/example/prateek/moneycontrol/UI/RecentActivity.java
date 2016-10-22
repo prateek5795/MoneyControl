@@ -29,11 +29,8 @@ public class RecentActivity extends AppCompatActivity {
     RecyclerView rvActivity;
 
     private FirebaseAuth mAuth;
-
     private DatabaseReference mUserActivity, mUserIdRef;
-
     FirebaseRecyclerAdapter<Item_model, ActivityViewHolder> firebaseRecyclerAdapter;
-
     int ba, sa;
 
     @Override
@@ -42,19 +39,15 @@ public class RecentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recent);
 
         mAuth = FirebaseAuth.getInstance();
-
         mUserIdRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
-
         mUserActivity = FirebaseDatabase.getInstance().getReference().child("Activity").child(mAuth.getCurrentUser().getUid());
         mUserActivity.keepSynced(true);
-
         ButterKnife.bind(this);
         rvActivity.setHasFixedSize(true);
         LinearLayoutManager lManager = new LinearLayoutManager(this);
         lManager.setReverseLayout(true);
         lManager.setStackFromEnd(true);
         rvActivity.setLayoutManager(lManager);
-
         mUserIdRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,13 +60,11 @@ public class RecentActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Item_model, ActivityViewHolder>(
                 Item_model.class,
                 R.layout.item_list_row,
@@ -82,13 +73,11 @@ public class RecentActivity extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(ActivityViewHolder viewHolder, Item_model model, final int position) {
-
                 if (model.getType().equals("Deposit")) {
                     viewHolder.tvDepOrTrans.setText("Deposit");
                     viewHolder.tvRowName.setText(model.getName());
                     viewHolder.tvRowValue.setText("₹ " + model.getValue());
                     viewHolder.tvRowDate.setText(model.getDate());
-
                     viewHolder.tvRowValue.setTextColor(Color.GREEN);
                     viewHolder.tvDepOrTrans.setTextColor(Color.GREEN);
                 }
@@ -98,7 +87,6 @@ public class RecentActivity extends AppCompatActivity {
                     viewHolder.tvRowName.setText(model.getName());
                     viewHolder.tvRowValue.setText("₹ " + model.getValue());
                     viewHolder.tvRowDate.setText(model.getDate());
-
                     viewHolder.tvRowValue.setTextColor(Color.RED);
                     viewHolder.tvDepOrTrans.setTextColor(Color.RED);
                 }
@@ -111,9 +99,7 @@ public class RecentActivity extends AppCompatActivity {
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                                 int value = Integer.valueOf(firebaseRecyclerAdapter.getItem(position).getValue());
-
                                 String type = firebaseRecyclerAdapter.getItem(position).getType();
                                 if (type.equals("Deposit")) {
                                     mUserIdRef.child("budget").setValue(String.valueOf(ba - value));
@@ -142,9 +128,7 @@ public class RecentActivity extends AppCompatActivity {
     public static class ActivityViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-
         TextView tvRowName, tvRowValue, tvRowDate, tvDepOrTrans;
-
         public ActivityViewHolder(View itemView) {
             super(itemView);
             mView = itemView;

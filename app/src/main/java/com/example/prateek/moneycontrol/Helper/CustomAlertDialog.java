@@ -3,6 +3,7 @@ package com.example.prateek.moneycontrol.Helper;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialog;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -15,8 +16,8 @@ public class CustomAlertDialog extends AppCompatDialog {
     private AlertDialog alertDialog;
     private AlertDialog.Builder builder;
     private TextView tv_title;
-    private EditText et_itemName;
-    private EditText et_itemValue;
+    private EditText et_field1;
+    private EditText et_field2;
     private TextView positiveButton;
     private TextView negativeButton;
 
@@ -30,14 +31,10 @@ public class CustomAlertDialog extends AppCompatDialog {
         positiveButton = (TextView) customView.findViewById(R.id.positiveButton);
         negativeButton = (TextView) customView.findViewById(R.id.negativeButton);
         tv_title = (TextView) customView.findViewById(R.id.tv_title);
-        et_itemName = (EditText) customView.findViewById(R.id.et_itemName);
-        et_itemValue = (EditText) customView.findViewById(R.id.et_itemValue);
+        et_field1 = (EditText) customView.findViewById(R.id.et_field1);
+        et_field2 = (EditText) customView.findViewById(R.id.et_field2);
 
         alertDialog = builder.setView(customView).create();
-    }
-
-    public void hideNegativeButton() {
-        negativeButton.setVisibility(View.GONE);
     }
 
     public void show() {
@@ -48,24 +45,32 @@ public class CustomAlertDialog extends AppCompatDialog {
         tv_title.setText(title);
     }
 
-    public void hideTitle() {
-        tv_title.setVisibility(View.GONE);
+    public void setField1Hint(String hint) {
+        et_field1.setHint(hint);
     }
 
-    public void setItemNameHint(String hint) {
-        et_itemName.setHint(hint);
+    public String getField1() {
+        return et_field1.getText().toString();
     }
 
-    public String getItemName() {
-        return et_itemName.getText().toString();
+    public void setField2Hint(String hint) {
+        et_field2.setHint(hint);
     }
 
-    public void setItemValueHint(String hint) {
-        et_itemValue.setHint(hint);
+    public String getField2() {
+        return et_field2.getText().toString();
     }
 
-    public String getItemValue() {
-        return et_itemValue.getText().toString();
+    public void setField2InputNum() {
+        et_field2.setInputType(InputType.TYPE_CLASS_NUMBER);
+    }
+
+    public void hideField2() {
+        et_field2.setVisibility(View.GONE);
+    }
+
+    public void setField2InputPass() {
+        et_field2.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
     }
 
     public void setPositiveButton(String positive_text, View.OnClickListener listener) {
@@ -80,9 +85,5 @@ public class CustomAlertDialog extends AppCompatDialog {
 
     public void close() {
         alertDialog.dismiss();
-    }
-
-    public void setMandatory() {
-        alertDialog.setCancelable(false);
     }
 }

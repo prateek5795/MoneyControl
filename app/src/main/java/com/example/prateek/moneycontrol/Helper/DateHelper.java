@@ -10,10 +10,6 @@ public class DateHelper {
         return String.valueOf(calendar.get(Calendar.DATE));
     }
 
-    public String getCurrYear() {
-        return String.valueOf(calendar.get(Calendar.YEAR));
-    }
-
     public String getFullDate() {
         String month = getCurrMonth(calendar.get(Calendar.MONTH));
         return (String.valueOf(calendar.get(Calendar.DATE)) + " " + month + " " + String.valueOf(calendar.get(Calendar.YEAR)));
@@ -21,40 +17,40 @@ public class DateHelper {
 
     public String getCurrMonth(int n) {
         switch (n) {
-            case 1:
+            case 0:
                 return "JAN";
 
-            case 2:
+            case 1:
                 return "FEB";
 
-            case 3:
+            case 2:
                 return "MAR";
 
-            case 4:
+            case 3:
                 return "APRIL";
 
-            case 5:
+            case 4:
                 return "MAY";
 
-            case 6:
+            case 5:
                 return "JUNE";
 
-            case 7:
+            case 6:
                 return "JULY";
 
-            case 8:
+            case 7:
                 return "AUG";
 
-            case 9:
+            case 8:
                 return "SEPT";
 
-            case 10:
+            case 9:
                 return "OCT";
 
-            case 11:
+            case 10:
                 return "NOV";
 
-            case 12:
+            case 11:
                 return "DEC";
 
             default:

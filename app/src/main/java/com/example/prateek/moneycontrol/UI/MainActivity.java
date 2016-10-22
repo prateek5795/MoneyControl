@@ -83,20 +83,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
-
     DatabaseReference mUserIdRef, mUserActivity;
-
-    ProgressDialog progressDialog;
-
     public int budgetAmount, spentAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mAuth = FirebaseAuth.getInstance();
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -108,32 +102,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         };
-
         mUserIdRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
         mUserIdRef.keepSynced(true);
-
         mUserActivity = FirebaseDatabase.getInstance().getReference().child("Activity").child(mAuth.getCurrentUser().getUid());
         mUserActivity.keepSynced(true);
-
         ButterKnife.bind(this);
-
         setAppTheme();
-
         mUserIdRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 tvUsername.setText(dataSnapshot.child("fname").getValue(String.class));
-
                 budgetAmount = Integer.valueOf(dataSnapshot.child("budget").getValue(String.class));
                 spentAmount = Integer.valueOf(dataSnapshot.child("spent").getValue(String.class));
-
                 tvBudgetAmount.setText("₹ " + String.valueOf(budgetAmount));
                 tvSpentAmount.setText("₹ " + String.valueOf(spentAmount));
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this, "Internet Error", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -158,48 +145,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setAppTheme() {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                     | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             window.setStatusBarColor(Color.argb(64, 0, 0, 0));
         }
-
         Calendar calendar = Calendar.getInstance();
         int time = calendar.get(Calendar.HOUR_OF_DAY);
-
         tvDate.setText(dh.getCurrMonth(calendar.get(Calendar.MONTH)) + " " + dh.getCurrDate());
-
         if (time >= 0 && time < 12) {
             tvGreeting.setText("Good Morning,");
             llGreeting.setBackground(new ColorDrawable(Color.parseColor("#38B0DE")));
             ivImage.setImageDrawable(getResources().getDrawable(R.drawable.morning));
-
         } else if (time >= 12 && time < 16) {
             tvGreeting.setText("Good Afternoon,");
             llGreeting.setBackground(new ColorDrawable(Color.parseColor("#978864")));
             ivImage.setImageDrawable(getResources().getDrawable(R.drawable.afternoon));
-
         } else if (time >= 16 && time < 20) {
-
             tvGreeting.setText("Good Evening,");
             llGreeting.setBackground(new ColorDrawable(Color.parseColor("#7f8c8d")));
             ivImage.setImageDrawable(getResources().getDrawable(R.drawable.evening));
-
         } else if (time >= 20) {
             tvGreeting.setText("Good Evening,");
             llGreeting.setBackground(new ColorDrawable(Color.BLACK));
             tvThisMonth.setBackground(new ColorDrawable(Color.parseColor("#2C3E50")));
-
             for (View v : dividers) {
                 v.setBackground(new ColorDrawable(Color.parseColor("#2C3E50")));
             }
-
             for (TextView tv : tvButtons) {
                 tv.setTextColor(Color.parseColor("#2C3E50"));
             }
-
             ivImage.setImageDrawable(getResources().getDrawable(R.drawable.night));
             ivDeposit.setImageDrawable(getResources().getDrawable(R.mipmap.deposit_night));
             ivTransact.setImageDrawable(getResources().getDrawable(R.mipmap.transact_night));
@@ -210,21 +186,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.llAddMoney:
-
                 final CustomAlertDialog depositDialog = new CustomAlertDialog(MainActivity.this);
                 depositDialog.setTitle("Deposit Money");
-                depositDialog.setItemNameHint("Eg From Salary");
-                depositDialog.setItemValueHint("Amount");
+                depositDialog.setField1Hint("Eg From Salary");
+                depositDialog.setField2Hint("Amount");
+                depositDialog.setField2InputNum();
                 depositDialog.setPositiveButton("Add", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String moneyType = depositDialog.getItemName();
-                        String addValue = depositDialog.getItemValue();
+                        String moneyType = depositDialog.getField1();
+                        String addValue = depositDialog.getField2();
                         int av = Integer.valueOf(addValue);
-
                         if (moneyType.equals("") || addValue.equals("")) {
                             Toast.makeText(getApplicationContext(), "Some fields are empty", Toast.LENGTH_SHORT).show();
                         } else {
@@ -235,31 +209,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
-
                 depositDialog.setNegativeButton("Cancel", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         depositDialog.close();
                     }
                 });
-
                 depositDialog.show();
-
                 break;
 
             case R.id.llTransact:
-
                 final CustomAlertDialog transactDialog = new CustomAlertDialog(MainActivity.this);
                 transactDialog.setTitle("Transact Money");
-                transactDialog.setItemNameHint("Eg Shoes");
-                transactDialog.setItemValueHint("Amount");
+                transactDialog.setField1Hint("Eg Shoes");
+                transactDialog.setField2Hint("Amount");
+                transactDialog.setField2InputNum();
                 transactDialog.setPositiveButton("Transact", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String moneyType = transactDialog.getItemName();
-                        String transactValue = transactDialog.getItemValue();
+                        String moneyType = transactDialog.getField1();
+                        String transactValue = transactDialog.getField2();
                         int tv = Integer.valueOf(transactValue);
-
                         if (moneyType.equals("") || transactValue.equals("")) {
                             Toast.makeText(getApplicationContext(), "Some fields are empty", Toast.LENGTH_SHORT).show();
                         } else {
@@ -270,16 +240,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
-
                 transactDialog.setNegativeButton("Cancel", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         transactDialog.close();
                     }
                 });
-
                 transactDialog.show();
-
                 break;
 
             case R.id.llActivity:
@@ -292,6 +259,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(profileIntent);
                 break;
         }
-
     }
 }
