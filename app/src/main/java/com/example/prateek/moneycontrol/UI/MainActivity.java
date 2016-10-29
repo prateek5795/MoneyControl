@@ -1,6 +1,5 @@
 package com.example.prateek.moneycontrol.UI;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -107,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mUserActivity = FirebaseDatabase.getInstance().getReference().child("Activity").child(mAuth.getCurrentUser().getUid());
         mUserActivity.keepSynced(true);
         ButterKnife.bind(this);
-        setAppTheme();
+        setActivityTheme();
         mUserIdRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void setAppTheme() {
+    private void setActivityTheme() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -202,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (moneyType.equals("") || addValue.equals("")) {
                             Toast.makeText(getApplicationContext(), "Some fields are empty", Toast.LENGTH_SHORT).show();
                         } else {
-                            mUserActivity.push().setValue(new Item_model(moneyType, String.valueOf(budgetAmount + av), fullDate, "Deposit"));
+                            mUserActivity.push().setValue(new Item_model(moneyType, String.valueOf(av), fullDate, "Deposit"));
                             mUserIdRef.child("budget").setValue(String.valueOf(budgetAmount + av));
                             Toast.makeText(getApplicationContext(), "Money added", Toast.LENGTH_SHORT).show();
                             depositDialog.close();
@@ -233,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (moneyType.equals("") || transactValue.equals("")) {
                             Toast.makeText(getApplicationContext(), "Some fields are empty", Toast.LENGTH_SHORT).show();
                         } else {
-                            mUserActivity.push().setValue(new Item_model(moneyType, String.valueOf(spentAmount + tv), fullDate, "Transact"));
+                            mUserActivity.push().setValue(new Item_model(moneyType, String.valueOf(tv), fullDate, "Transact"));
                             mUserIdRef.child("spent").setValue(String.valueOf(spentAmount + tv));
                             Toast.makeText(getApplicationContext(), "Money transacted", Toast.LENGTH_SHORT).show();
                             transactDialog.close();

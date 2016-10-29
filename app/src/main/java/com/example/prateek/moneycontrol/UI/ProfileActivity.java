@@ -3,15 +3,20 @@ package com.example.prateek.moneycontrol.UI;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +33,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +61,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     Button bClearData;
     @BindView(R.id.bSignout)
     Button bSignout;
+    @BindView(R.id.activity_profile)
+    ScrollView activity_profile;
 
     @BindView(R.id.ll_newPass)
     LinearLayout ll_newPass;
@@ -68,11 +77,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        ButterKnife.bind(this);
+        setActivityTheme();
         mAuth = FirebaseAuth.getInstance();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUserIdRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mUser.getUid());
         mUserActivityRef = FirebaseDatabase.getInstance().getReference().child("Activity").child(mUser.getUid());
-        ButterKnife.bind(this);
         et_email.setText(mUser.getEmail());
         mUserIdRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -91,6 +101,26 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         bSaveChanges.setOnClickListener(this);
         bSignout.setOnClickListener(this);
         tv_changePassword.setOnClickListener(this);
+    }
+
+    private void setActivityTheme() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            window.setStatusBarColor(Color.argb(64, 0, 0, 0));
+        }
+        Calendar calendar = Calendar.getInstance();
+        int time = calendar.get(Calendar.HOUR_OF_DAY);
+        if (time >= 0 && time < 12) {
+            activity_profile.setBackground(new ColorDrawable(Color.parseColor("#38B0DE")));
+        } else if (time >= 12 && time < 16) {
+            activity_profile.setBackground(new ColorDrawable(Color.parseColor("#978864")));
+        } else if (time >= 16 && time < 20) {
+            activity_profile.setBackground(new ColorDrawable(Color.parseColor("#7f8c8d")));
+        } else if (time >= 20) {
+            activity_profile.setBackground(new ColorDrawable(Color.BLACK));
+        }
     }
 
     @Override
@@ -145,6 +175,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 mAuth.signOut();
                 Intent loginIntent = new Intent(ProfileActivity.this, LoginActivity.class);
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
                 startActivity(loginIntent);
                 break;
 

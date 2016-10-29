@@ -19,7 +19,10 @@
         <activity android:name=".UI.MainActivity" />
         <activity android:name=".UI.RecentActivity" />
         <activity android:name=".UI.SignupActivity" />
-        <activity android:name=".UI.ProfileActivity" />
+        <activity
+            android:name=".UI.ProfileActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".UI.DateItemsActivity"></activity>
     </application>
 
 </manifest>

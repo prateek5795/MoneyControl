@@ -2,14 +2,19 @@ package com.example.prateek.moneycontrol.UI;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -35,23 +42,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText et_emailInput;
     @BindView(R.id.et_passwordInput)
     EditText et_passwordInput;
-    @BindView(R.id.tv_signup)
-    TextView tv_signup;
+    @BindView(R.id.bSignup)
+    Button bSignup;
     @BindView(R.id.tv_forgotPassword)
     TextView tv_forgotPassword;
     @BindView(R.id.bLogin)
     Button bLogin;
+    @BindView(R.id.activity_login)
+    LinearLayout activity_login;
 
     private ProgressDialog mProgress;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference mDatabaseUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        setActivityTheme();
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -61,14 +70,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "Authenticated", Toast.LENGTH_SHORT).show();
                     Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    finish();
                     startActivity(mainIntent);
                 }
             }
         };
         mProgress = new ProgressDialog(this);
         bLogin.setOnClickListener(this);
-        tv_signup.setOnClickListener(this);
+        bSignup.setOnClickListener(this);
         tv_forgotPassword.setOnClickListener(this);
+    }
+
+    private void setActivityTheme() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            window.setStatusBarColor(Color.argb(64, 0, 0, 0));
+        }
+        Calendar calendar = Calendar.getInstance();
+        int time = calendar.get(Calendar.HOUR_OF_DAY);
+        if (time >= 0 && time < 12) {
+            activity_login.setBackground(new ColorDrawable(Color.parseColor("#38B0DE")));
+        } else if (time >= 12 && time < 16) {
+            activity_login.setBackground(new ColorDrawable(Color.parseColor("#978864")));
+        } else if (time >= 16 && time < 20) {
+            activity_login.setBackground(new ColorDrawable(Color.parseColor("#7f8c8d")));
+        } else if (time >= 20) {
+            activity_login.setBackground(new ColorDrawable(Color.BLACK));
+        }
     }
 
     @Override
@@ -104,6 +134,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         mProgress.dismiss();
                                         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                                         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        finish();
                                         startActivity(mainIntent);
                                     } else {
                                         mProgress.dismiss();
@@ -114,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
 
-            case R.id.tv_signup:
+            case R.id.bSignup:
                 Intent i = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(i);
                 break;
@@ -153,5 +184,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
                 alertDialog.show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        moveTaskToBack(true);
     }
 }
